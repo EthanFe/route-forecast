@@ -12,12 +12,11 @@ import RidingPace from './ui/ridingPace';
 import Recalculate from './recalculate';
 import FileInput from './ui/fileInput';
 import DateSelect from './ui/dateSelect';
-import RideWithGpsId from './ui/rideWithGpsId';
-import RwGpsTypeSelector from './ui/rwGpsTypeSelector';
-import ForecastButton from './ui/forecastButton';
 import AnalysisButton from './ui/analysisButton';
 import StravaDialog from './stravaDialog';
 import BugReportButton from './ui/bugReportButton';
+import RideWithGpsId from './ui/rideWithGpsId';
+import '../static/routeInfoEntryStyles.css';
 
 class RouteInfoForm extends Component {
     static propTypes = {
@@ -106,70 +105,50 @@ class RouteInfoForm extends Component {
     render() {
         const header = (<div style={{textAlign:"center",'fontSize':'90%'}}>Forecast and time estimate</div>);
         return (
-            <div>
-                <Card>
-                    <CardBody>
-                        <CardTitle className='dlgTitle' tag='h6'>{header}</CardTitle>
-                    <Form inline id="forecast_form">
-                        <Row>
+            <div className="routeInfoEntryContainer">
+                <CardTitle className='dlgTitle' tag='h6'>{header}</CardTitle>
+                <div className="routeInfoEntryRow">
+                    <DateSelect/>
+                    <Recalculate/>
+                </div>
+                <div className="routeInfoEntryRow">
+                    <ForecastInterval/>
+                    <RidingPace/>
+                    {/* <MediaQuery minDeviceWidth={1000} values={{deviceWidth:1400}}>
+                        <Col sm="1">
+                            <PaceExplanation/>
+                        </Col>
+                    </MediaQuery> */}
+                </div>
+                <div>
+                    <Col sm={{size:"auto"}}>
+                        <FileInput/>
+                    </Col>
+                </div>
+                <div className="routeInfoEntryRow">
+                    <RideWithGpsId/>
+                </div>
+                {RouteInfoForm.showErrorDetails(this.props.errorDetails)}
+                {RouteInfoForm.showProgressSpinner(this.props.fetchingRoute)}
+                <MediaQuery maxDeviceWidth={800} values={{deviceWidth:1400}}>
+                    <ShortUrl/>
+                </MediaQuery>
+                <MediaQuery minDeviceWidth={1000} values={{deviceWidth:1400}}>
+                    <Container fluid={true}>
+                        <Row className="justify-content-sm-between">
+                            <Col sm={{size:"auto"}}>
+                                <ShortUrl/>
+                            </Col>
                             <Col>
-                                <DateSelect/>
-                                <Recalculate/>
+                                <AnalysisButton/>
+                                <StravaDialog/>
+                            </Col>
+                            <Col>
+                                <BugReportButton/>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col sm="5">
-                                <ForecastInterval/>
-                            </Col>
-                            <Col sm="4">
-                                <RidingPace/>
-                            </Col>
-                            <MediaQuery minDeviceWidth={1000} values={{deviceWidth:1400}}>
-                                <Col sm="1">
-                                    <PaceExplanation/>
-                                </Col>
-                            </MediaQuery>
-                        </Row>
-                        <Row noGutters>
-                            <Col sm={{size:"auto"}}>
-                                <FileInput/>
-                            </Col>
-                        </Row>
-                        <Row noGutters>
-                            <Col sm={{size:"auto"}}>
-                                <RideWithGpsId/>
-                            </Col>
-                            <Col size={{size:"auto"}}>
-                                <RwGpsTypeSelector visible={false}/>
-                            </Col>
-                            <Col size={{size:"auto"}}>
-                                <ForecastButton/>
-                            </Col>
-                        </Row>
-                        {RouteInfoForm.showErrorDetails(this.props.errorDetails)}
-                        {RouteInfoForm.showProgressSpinner(this.props.fetchingRoute)}
-                    </Form>
-                    <MediaQuery maxDeviceWidth={800} values={{deviceWidth:1400}}>
-                        <ShortUrl/>
-                    </MediaQuery>
-                    </CardBody>
-                </Card>
-            <MediaQuery minDeviceWidth={1000} values={{deviceWidth:1400}}>
-                <Container fluid={true}>
-                    <Row className="justify-content-sm-between">
-                        <Col sm={{size:"auto"}}>
-                            <ShortUrl/>
-                        </Col>
-                        <Col>
-                            <AnalysisButton/>
-                            <StravaDialog/>
-                        </Col>
-                        <Col>
-                            <BugReportButton/>
-                        </Col>
-                    </Row>
-                </Container>
-            </MediaQuery>
+                    </Container>
+                </MediaQuery>
             </div>
         );
     }

@@ -4,6 +4,7 @@ import {Button, UncontrolledTooltip} from 'reactstrap';
 import {connect} from 'react-redux';
 import {requestForecast, setFetchAfterLoad} from "../actions/actions";
 import MediaQuery from 'react-responsive';
+import '../../static/routeInfoEntryStyles.css';
 
 const ForecastButton = ({fetchingForecast,requestForecast,routeInfo,submitDisabled,routeIsLoaded,setFetchAfterLoad}) => {
     let forecast_tooltip = submitDisabled ? (
@@ -22,18 +23,18 @@ const ForecastButton = ({fetchingForecast,requestForecast,routeInfo,submitDisabl
     };
 
     return (
-        <div id='forecast' style={{'display':'inline-flex',padding:'0px 14px'}} cursor='not-allowed'>
+        <div id='forecast' className="forecastButtonContainer" cursor='not-allowed'>
             {forecast_tooltip}
             <MediaQuery minDeviceWidth={1000} values={{deviceWidth:1400}}>
                 <Button tabIndex='6' color="primary" onClick={forecastClick}
                         style={buttonStyle}
-                        disabled={submitDisabled || fetchingForecast}>
+                        disabled={submitDisabled || fetchingForecast} className="forecastButton">
                     {fetchingForecast?'Updating...':'Find forecast'}</Button>
             </MediaQuery>
             <MediaQuery maxDeviceWidth={800} values={{deviceWidth:1400}}>
                 <Button id='forecast' tabIndex='6' color="primary" onClick={forecastClick}
                         style={buttonStyle}
-                        disabled={submitDisabled || fetchingForecast} size="sm">
+                        disabled={submitDisabled || fetchingForecast} className="forecastButton">
                     {fetchingForecast?'Updating...':'Find forecast'}</Button>
             </MediaQuery>
         </div>

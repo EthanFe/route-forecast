@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import {loadFromRideWithGps, setRwgpsRoute, newUserMode} from "../actions/actions";
 import cookie from 'react-cookies';
 import {getRouteNumberFromValue, decideValidationStateFor} from "../routeInfoEntry";
+import ForecastButton from './forecastButton';
+import '../../static/routeInfoEntryStyles.css';
 
 const RideWithGpsId = ({setRwgpsRoute,loadingSource,loadingSuccess,rwgpsRoute,rwgpsRouteIsTrip,loadFromRideWithGps,
                        newUserMode,firstUse}) => {
@@ -35,48 +37,53 @@ const RideWithGpsId = ({setRwgpsRoute,loadingSource,loadingSuccess,rwgpsRoute,rw
     };
 
     return (
-        <FormGroup inline>
-            <Label for='rwgps_route' size='sm' tag='b'>RideWithGps route</Label>
-            <UncontrolledTooltip placement="bottom" target='rwgps_route'>The number for a route on Ride with GPS</UncontrolledTooltip>
-            <Input id={'rwgps_route'} className={firstUse?'ridewithgps_init':''}
-                   size="9" bsSize='xsm' tabIndex='5' type="text"
-                   {...decideValidationStateFor('rwgps',loadingSource,loadingSuccess)}
-                 onBlur={event => {handleRwgpsRoute(event.target.value)}}
-                 onKeyPress={isNumberKey}
-                 onChange={event => {settingRoute(event.target.value)}}
-                 onDrop={event => {
-                     let dt = event.dataTransfer;
-                     if (dt.items) {
-                         for (let i=0;i < dt.items.length;i++) {
-                             if (dt.items[i].kind === 'string') {
-                                 event.preventDefault();
-                                 dt.items[i].getAsString(value => {
-                                     settingRoute(value);
-                                     handleRwgpsRoute(value);
-                                 });
-                             } else {
-                                 console.log('vetoing drop of',i,dt.items[i].kind);
-                                 return false;
-                             }
-                         }
-                     }
-                 }}
-                 /*onDragOver={event => {
-                     event.preventDefault();
-                     event.dataTransfer.dropEffect = 'move';
-                 }}*/
-                 onDragEnd={event => {
-                     let dt = event.dataTransfer;
-                     if (dt.items) {
-                         // Use DataTransferItemList interface to remove the drag data
-                         for (let i = 0;i < dt.items.length;i++) {
-                             dt.items.remove(i);
-                         }
-                     }
-                 }}
-                 pattern="[0-9]*"
-                 value={rwgpsRoute}/>
-        </FormGroup>
+        <div className="rideWithGpsInputContainer">
+            <FormGroup style={{"padding-left": "15px", width: "100%"}}>
+                <Label for='rwgps_route' size='sm' tag='b'>RideWithGps route</Label>
+                <UncontrolledTooltip placement="bottom" target='rwgps_route'>The number for a route on Ride with GPS</UncontrolledTooltip>
+                <div className="rideWithGpsInput">
+                    <Input id={'rwgps_route'} className={firstUse?'ridewithgps_init':''} style={{flex: 4}}
+                        size="9" bsSize='xsm' tabIndex='5' type="text"
+                        {...decideValidationStateFor('rwgps',loadingSource,loadingSuccess)}
+                        onBlur={event => {handleRwgpsRoute(event.target.value)}}
+                        onKeyPress={isNumberKey}
+                        onChange={event => {settingRoute(event.target.value)}}
+                        onDrop={event => {
+                            let dt = event.dataTransfer;
+                            if (dt.items) {
+                                for (let i=0;i < dt.items.length;i++) {
+                                    if (dt.items[i].kind === 'string') {
+                                        event.preventDefault();
+                                        dt.items[i].getAsString(value => {
+                                            settingRoute(value);
+                                            handleRwgpsRoute(value);
+                                        });
+                                    } else {
+                                        console.log('vetoing drop of',i,dt.items[i].kind);
+                                        return false;
+                                    }
+                                }
+                            }
+                        }}
+                        /*onDragOver={event => {
+                            event.preventDefault();
+                            event.dataTransfer.dropEffect = 'move';
+                        }}*/
+                        onDragEnd={event => {
+                            let dt = event.dataTransfer;
+                            if (dt.items) {
+                                // Use DataTransferItemList interface to remove the drag data
+                                for (let i = 0;i < dt.items.length;i++) {
+                                    dt.items.remove(i);
+                                }
+                            }
+                        }}
+                        pattern="[0-9]*"
+                        value={rwgpsRoute}/>
+                    <ForecastButton/>
+                </div>
+            </FormGroup>
+        </div>
     );
 };
 

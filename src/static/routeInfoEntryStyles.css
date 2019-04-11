@@ -1,0 +1,56 @@
+.routeInfoEntryContainer {
+  display: flex;
+  flex-flow: column;
+  height: 500px;
+  width: 500px;
+  padding: 10px;
+}
+
+.routeInfoEntryRow {
+  display: flex;
+  flex-flow: row;
+}
+
+.routeInfoEntryRowMember {
+  flex: 1;
+  margin: 5px;
+}
+
+.dateEntryContainer {
+  display: flex;
+  flex-flow: column;
+}
+
+.dateEntryLabelContainer {
+  opacity: 0.75;
+}
+
+.calendarIcon {
+  margin-right: 5px;
+}
+
+.dateEntryLabel {
+  font-size: 13px;
+}
+
+.rideWithGpsInputContainer {
+  width: 100%;
+}
+
+.rideWithGpsInput {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+}
+
+.forecastButtonContainer {
+  flex: 1;
+  max-height: 50px;
+  padding: 0px 5px;
+}
+
+.btn.forecastButton {
+  height: 40px;
+  font-size: .8rem;
+  padding: 2px;
+}

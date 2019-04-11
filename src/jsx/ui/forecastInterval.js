@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import {Label, Input, FormGroup, UncontrolledTooltip} from 'reactstrap';
 import {connect} from 'react-redux';
 import {setInterval} from "../actions/actions";
+import '../../static/routeInfoEntryStyles.css';
 
 const ForecastInterval = ({interval,setInterval}) => {
     return (
-        <FormGroup inline row size='lg'>
-            <UncontrolledTooltip target='interval' placement='bottom'>How often to generate weather forecast</UncontrolledTooltip>
-            <Label for='interval' size='sm' tag='b'>Interval in hours</Label>
+        <div className="routeInfoEntryRowMember">
+            <UncontrolledTooltip target='interval' placement='bottom'>How often to generate weather forecast, in hours</UncontrolledTooltip>
+            <Label for='interval' size='sm' tag='b' className="intervalLabel">Forecast Interval</Label>
             <Input size="5" bsSize='xsm' id='interval' tabIndex='2' type="number"
                    min={0.5} max={2} step={0.5} name="interval"
                  value={interval} onChange={event => {setInterval(event.target.value)}}/>
-        </FormGroup>
+        </div>
     );
 };
 

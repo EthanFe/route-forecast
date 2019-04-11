@@ -5,6 +5,7 @@ import {Icon} from '@blueprintjs/core';
 import {Label, FormGroup, UncontrolledTooltip} from 'reactstrap';
 import {connect} from 'react-redux';
 import {setStart} from "../actions/actions";
+import '../../static/routeInfoEntryStyles.css';
 
 /*const setDateAndTime = function(dates, datestr, instance) {
     if (datestr === '') {
@@ -23,11 +24,13 @@ const DateSelect = ({start,setStart}) => {
     later.setDate(now.getDate() + daysToAdd);
 
     return (
-        <FormGroup row size='sm' tabIndex="1"
-                   style={{flex:'1',display:'inline-flex',alignItems:'center'}}>
-            <UncontrolledTooltip placement='bottom' target="startingTime">When you plan to begin riding</UncontrolledTooltip>
-            <Icon icon="calendar"/>
-            <Label for='calendar' size='sm' tag='b' id='startingTime'>Starting time</Label>
+        <FormGroup size='sm' tabIndex="1"
+                   style={{flex:'1',display:'inline-flex',alignItems:'center'}} id="dateEntryContainer" className="dateEntryContainer">
+            <UncontrolledTooltip placement='bottom' target="dateEntryContainer">When you plan to begin riding</UncontrolledTooltip>
+            <div className="dateEntryLabelContainer">
+                <Icon icon="calendar" className="calendarIcon"/>
+                <Label for='calendar' tag='b' id='startingTime' className="dateEntryLabel">Starting Time</Label>
+            </div>
             <Flatpickr key={start.getTime()} id='calendar' onChange={(dates) => {
                 setStart(new Date(dates[0]));
             }}
